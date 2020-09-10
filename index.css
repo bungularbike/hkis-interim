@@ -44,3 +44,16 @@ h1, h2, h3, h4, h5, h6 {
 .form-control {
 	width: auto !important;
 }
+
+@media (max-width: 576px){
+	#userName {
+		font-size: calc(1rem + .3vw);
+	}
+}
+
+@media (max-width: 576px){
+	#signOut {
+		font-size: calc(0.75rem + .3vw);
+		height: calc(2rem + .3vw);
+	}
+}

@@ -15,6 +15,19 @@ firebase.auth().onAuthStateChanged(function(user) {
 	if (!user) {
 		window.open("index.html", "_self");
     } else {
-        $("#fade").remove();
+        firebase.auth().currentUser.getIdToken().then(function(token) {
+            $.ajax({
+                method: "GET",
+                url: "https://hkisinterimcentral.herokuapp.com/student?token=" + token
+            }).done(function(jqxhr) {
+                var data = JSON.parse(jqxhr.responseText);
+                $("#userName").html(data.name);
+                $("#fade").remove();
+            }).fail(function(jqxhr) {
+                alert(jqxhr.responseText);
+            });
+        }).catch(function(error) {
+            alert(error.message);
+        });
     }
 });

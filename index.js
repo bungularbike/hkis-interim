@@ -22,7 +22,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 $("#studentSignIn").click(function() {
 	var provider = new firebase.auth.GoogleAuthProvider();
 	provider.setCustomParameters({"hd": "hkis.edu.hk"});
-	firebase.auth().signInWithRedirect(provider).then(function(result) {
+	firebase.auth().signInWithPopup(provider).then(function(result) {
 		var token = result.credential.accessToken;
 		console.log(token);
 		var user = result.user;

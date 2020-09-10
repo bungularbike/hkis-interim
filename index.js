@@ -1,6 +1,6 @@
 var firebaseConfig = {
     apiKey: "AIzaSyA6uzX2X3dFEOz86Cwp3ZxeAreKR2XY7fo",
-    authDomain: "hkisrobotics.com",
+    authDomain: "auth.hkisrobotics.com",
     databaseURL: "https://hkis-interim.firebaseio.com",
     projectId: "hkis-interim",
     storageBucket: "hkis-interim.appspot.com",

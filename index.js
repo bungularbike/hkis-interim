@@ -1,6 +1,6 @@
 var firebaseConfig = {
     apiKey: "AIzaSyA6uzX2X3dFEOz86Cwp3ZxeAreKR2XY7fo",
-    authDomain: "auth.hkisrobotics.com",
+    authDomain: "hkisrobotics.com",
     databaseURL: "https://hkis-interim.firebaseio.com",
     projectId: "hkis-interim",
     storageBucket: "hkis-interim.appspot.com",
@@ -14,7 +14,7 @@ var firebaseConfig = {
 $("#studentSignIn").click(function() {
 	var provider = new firebase.auth.GoogleAuthProvider();
 	provider.setCustomParameters({"hd": "hkis.edu.hk"});
-	firebase.auth().signInWithPopup(provider).then(function(result) {
+	firebase.auth().signInWithRedirect(provider).then(function(result) {
 		var token = result.credential.accessToken;
 		console.log(token);
 		var user = result.user;

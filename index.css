@@ -17,8 +17,18 @@
 	font-family: Avenir;
 }
 
+body {
+	width: 100%;
+}
+
 h1, h2, h3, h4, h5, h6 {
 	font-family: Futura Bold;
+}
+
+@media (max-width: 576px){
+	#header {
+		font-size: calc(1.275rem + .3vw);
+	}
 }
 
 .form-control {

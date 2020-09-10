@@ -21,7 +21,7 @@ firebase.auth().onAuthStateChanged(function(user) {
                 url: "https://hkisinterimcentral.herokuapp.com/student?token=" + token,
                 dataType: "json"
             }).done(function(jqxhr) {
-                var data = jqxhr.response;
+                var data = jqxhr.responseJSON;
                 $("#userName").html(data.name);
                 $("#fade").remove();
             }).fail(function(jqxhr) {

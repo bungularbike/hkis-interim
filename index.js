@@ -22,6 +22,8 @@ firebase.auth().onAuthStateChanged(function(user) {
 
 $("#studentSignIn").click(function() {
 	login = true;
+	$("#studentSignIn").attr("disabled", true);
+	$("#studentError").empty();
 	var provider = new firebase.auth.GoogleAuthProvider();
 	provider.setCustomParameters({"hd": "hkis.edu.hk"});
 	firebase.auth().signInWithPopup(provider).then(function(result) {
@@ -32,13 +34,21 @@ $("#studentSignIn").click(function() {
 			}).done(function(jqxhr) {
 				window.open("dash.html", "_self");
 			}).fail(function(jqxhr) {
+				login = false;
 				console.log(jqxhr.responseText);
+				$("#studentError").html(jqxhr.responseText);
+				$("#studentSignIn").attr("disabled", false);
 			});
 		}).catch(function(error) {
+			login = false;
 			console.log(error.message);
+			$("#studentError").html(error.message);
+			$("#studentSignIn").attr("disabled", false);
 		});		
 	}).catch(function(error) {
 		login = false;
 		console.log(error.message);
+		$("#studentError").html(error.message);
+		$("#studentSignIn").attr("disabled", false);
 	});
 });

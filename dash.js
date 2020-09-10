@@ -18,9 +18,10 @@ firebase.auth().onAuthStateChanged(function(user) {
         firebase.auth().currentUser.getIdToken().then(function(token) {
             $.ajax({
                 method: "GET",
-                url: "https://hkisinterimcentral.herokuapp.com/student?token=" + token
+                url: "https://hkisinterimcentral.herokuapp.com/student?token=" + token,
+                dataType: "json"
             }).done(function(jqxhr) {
-                var data = jqxhr.responseText;
+                var data = jqxhr.response;
                 $("#userName").html(data.name);
                 $("#fade").remove();
             }).fail(function(jqxhr) {
@@ -30,4 +31,9 @@ firebase.auth().onAuthStateChanged(function(user) {
             alert(error.message);
         });
     }
+});
+
+$("#signOut").click(function() {
+    $("#signOut").attr("disabled", true);
+    firebase.auth().signOut();
 });

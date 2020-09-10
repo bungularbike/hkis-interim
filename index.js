@@ -11,8 +11,9 @@ var firebaseConfig = {
  firebase.initializeApp(firebaseConfig);
  firebase.analytics();
 
+var login = false;
 firebase.auth().onAuthStateChanged(function(user) {
-	if (user) {
+	if (user && !login) {
 		window.open("dash.html", "_self");
 	} else {
 		$("#fade").remove();
@@ -20,14 +21,24 @@ firebase.auth().onAuthStateChanged(function(user) {
 });
 
 $("#studentSignIn").click(function() {
+	login = true;
 	var provider = new firebase.auth.GoogleAuthProvider();
 	provider.setCustomParameters({"hd": "hkis.edu.hk"});
 	firebase.auth().signInWithPopup(provider).then(function(result) {
-		var token = result.credential.accessToken;
-		console.log(token);
-		var user = result.user;
+		firebase.auth().currentUser.getIdToken(true).then(function(token) {
+			$.ajax({
+				method: "GET",
+				url: "https://hkisinterimcentral.herokuapp.com/student?token=" + token
+			}).done(function(jqxhr) {
+				window.open("dash.html", "_self");
+			}).fail(function(jqxhr) {
+				console.log(jqxhr.responseText);
+			});
+		}).catch(function(error) {
+			console.log(error.message);
+		});		
 	}).catch(function(error) {
-		var errorMessage = error.message;
-		console.log(errorMessage);
+		login = false;
+		console.log(error.message);
 	});
 });

@@ -11,13 +11,15 @@ var firebaseConfig = {
  firebase.initializeApp(firebaseConfig);
  firebase.analytics();
 
-var provider = new firebase.auth.GoogleAuthProvider();
-provider.setCustomParamters({"hd": "hkis.edu.hk"});
-firebase.auth().signInWithPopup(provider).then(function(result) {
-	var token = result.credential.accessToken;
-	console.log(token);
-	var user = result.user;
-}).catch(function(error) {
-	var errorMessage = error.message;
-	console.log(errorMessage);
+$("#studentSignIn").click(function() {
+	var provider = new firebase.auth.GoogleAuthProvider();
+	provider.setCustomParameters({"hd": "hkis.edu.hk"});
+	firebase.auth().signInWithPopup(provider).then(function(result) {
+		var token = result.credential.accessToken;
+		console.log(token);
+		var user = result.user;
+	}).catch(function(error) {
+		var errorMessage = error.message;
+		console.log(errorMessage);
+	});
 });

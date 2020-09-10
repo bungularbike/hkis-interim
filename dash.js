@@ -12,22 +12,7 @@ var firebaseConfig = {
  firebase.analytics();
 
 firebase.auth().onAuthStateChanged(function(user) {
-	if (user) {
-		window.open("dash.html", "_self");
-	} else {
-		$("#fade").remove();
-	}
-});
-
-$("#studentSignIn").click(function() {
-	var provider = new firebase.auth.GoogleAuthProvider();
-	provider.setCustomParameters({"hd": "hkis.edu.hk"});
-	firebase.auth().signInWithRedirect(provider).then(function(result) {
-		var token = result.credential.accessToken;
-		console.log(token);
-		var user = result.user;
-	}).catch(function(error) {
-		var errorMessage = error.message;
-		console.log(errorMessage);
-	});
+	if (!user) {
+		window.open("index.html", "_self");
+    }
 });

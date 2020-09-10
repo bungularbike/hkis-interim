@@ -20,7 +20,7 @@ firebase.auth().onAuthStateChanged(function(user) {
                 method: "GET",
                 url: "https://hkisinterimcentral.herokuapp.com/student?token=" + token
             }).done(function(jqxhr) {
-                var data = JSON.parse(jqxhr.responseText);
+                var data = jqxhr.responseText;
                 $("#userName").html(data.name);
                 $("#fade").remove();
             }).fail(function(jqxhr) {

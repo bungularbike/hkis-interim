@@ -14,5 +14,7 @@ var firebaseConfig = {
 firebase.auth().onAuthStateChanged(function(user) {
 	if (!user) {
 		window.open("index.html", "_self");
+    } else {
+        $("#fade").remove();
     }
 });

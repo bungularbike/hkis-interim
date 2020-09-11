@@ -177,3 +177,15 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 		column-count: 1 !important;
 	}
 }
+
+.card-columns .card {
+	cursor: pointer;
+}
+
+.card-columns .card:hover, .card-columns .card:focus {
+	filter: brightness(95%);
+}
+
+.card-columns .card:active, .card-columns .card.active {
+	filter: brightness(85%);
+}

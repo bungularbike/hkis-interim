@@ -39,7 +39,7 @@ db.collection("interims").orderBy("id").get().then(function(qS) {
         }
         var price = formatter.format(trip.price);
         price = price.substring(0, price.length - 3);
-        $(".card-columns").append("<div class = 'card' id = 'trip" + doc.id + "' tabindex = '0'><div class = 'card-body'><h4 class = 'card-title'>" + (trip.new ? "<span class = 'h4' style = 'color: red'>NEW </span>" : "") + trip.name + "</h6><h6 class = 'card-text'>" + categories + "</h6><h6 class = 'card-text'>" + price + "</h6><p class = 'card-text mb-0'>" + trip.description + "</p></div></div>");
+        $(".card-columns").append("<div class = 'card' id = 'trip" + doc.id + "' tabindex = '0' ontouchstart = ''><div class = 'card-body'><h4 class = 'card-title'>" + (trip.new ? "<span class = 'h4' style = 'color: red'>NEW </span>" : "") + trip.name + "</h6><h6 class = 'card-text'>" + categories + "</h6><h6 class = 'card-text'>" + price + "</h6><p class = 'card-text mb-0'>" + trip.description + "</p></div></div>");
         $("#trip" + doc.id).keydown(function(event) {
             if (event.keyCode == 32) {
                 $("#trip" + doc.id).addClass("active");

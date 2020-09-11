@@ -11,6 +11,10 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
+$("#fade").remove();
+$("#userName").html("Jack Rong")
+
+/*
 firebase.auth().onAuthStateChanged(function(user) {
 	if (!user) {
 		window.open("index.html", "_self");
@@ -36,3 +40,4 @@ $("#signOut").click(function() {
     $("#signOut").attr("disabled", true);
     firebase.auth().signOut();
 });
+*/

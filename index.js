@@ -24,6 +24,7 @@ $("#studentSignIn").click(function() {
 	login = true;
 	$("#studentSignIn").attr("disabled", true);
 	$("#studentError").empty();
+	$("#studentSpinnerP").append("<span class = 'spinner-border ml-3'></span>");
 	var provider = new firebase.auth.GoogleAuthProvider();
 	provider.setCustomParameters({"hd": "hkis.edu.hk"});
 	firebase.auth().signInWithPopup(provider).then(function(result) {
@@ -35,20 +36,42 @@ $("#studentSignIn").click(function() {
 				window.open("dash.html", "_self");
 			}).fail(function(jqxhr) {
 				login = false;
-				console.log(jqxhr.responseText);
 				$("#studentError").html(jqxhr.responseText);
 				$("#studentSignIn").attr("disabled", false);
+				$("#studentSpinnerP .spinner-border").remove();
 			});
 		}).catch(function(error) {
 			login = false;
-			console.log(error.message);
 			$("#studentError").html(error.message);
 			$("#studentSignIn").attr("disabled", false);
+			$("#studentSpinnerP .spinner-border").remove();
 		});		
 	}).catch(function(error) {
-		login = false;
-		console.log(error.message);
-		$("#studentError").html(error.message);
-		$("#studentSignIn").attr("disabled", false);
+		var message = "";
+		switch (error.code) {
+			case "auth/popup-blocked":
+				message = "Please enable popups for this page to complete sign-in"
+				login = false;
+				$("#studentError").html(error.message);
+				$("#studentSignIn").attr("disabled", false);
+				$("#studentSpinnerP .spinner-border").remove();
+				break;
+			case "auth/popup-closed-by-user":
+				message = "Please try signing in again"
+				login = false;
+				$("#studentError").html(error.message);
+				$("#studentSignIn").attr("disabled", false);
+				$("#studentSpinnerP .spinner-border").remove();
+				break;
+			case "auth/cancelled-popup-request":
+				break;
+			default:
+				message = error.message;
+				login = false;
+				$("#studentError").html(error.message);
+				$("#studentSignIn").attr("disabled", false);
+				$("#studentSpinnerP .spinner-border").remove();
+				break;
+		}
 	});
 });

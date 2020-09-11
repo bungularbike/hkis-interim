@@ -50,23 +50,20 @@ $("#studentSignIn").click(function() {
 		var message = "";
 		switch (error.code) {
 			case "auth/popup-blocked":
-				message = "Please enable popups for this page to complete sign-in"
 				login = false;
-				$("#studentError").html(error.message);
+				$("#studentError").html("Please enable popups for this page to complete sign-in");
 				$("#studentSignIn").attr("disabled", false);
 				$("#studentSpinnerP .spinner-border").remove();
 				break;
 			case "auth/popup-closed-by-user":
-				message = "Please try signing in again"
 				login = false;
-				$("#studentError").html(error.message);
+				$("#studentError").html("Please try signing in again");
 				$("#studentSignIn").attr("disabled", false);
 				$("#studentSpinnerP .spinner-border").remove();
 				break;
 			case "auth/cancelled-popup-request":
 				break;
 			default:
-				message = error.message;
 				login = false;
 				$("#studentError").html(error.message);
 				$("#studentSignIn").attr("disabled", false);

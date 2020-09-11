@@ -21,7 +21,7 @@ body {
 	width: 100%;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	font-family: Futura Bold;
 }
 
@@ -46,6 +46,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media (max-width: 576px){
+	.navbar-brand, #statusBar {
+		width: 100%;
+	}
+}
+
+@media (max-width: 576px){
 	#userName {
 		font-size: calc(1rem + .3vw);
 	}
@@ -56,4 +62,43 @@ h1, h2, h3, h4, h5, h6 {
 		font-size: calc(0.75rem + .3vw);
 		height: calc(2rem + .3vw);
 	}
+}
+
+.nav-item a {
+	color: #495057 !important;
+	font-family: Futura;
+}
+
+.nav-link.active {
+	background-color: transparent !important;
+	border: none !important;
+	border-bottom: 3px solid #075088 !important;
+}
+
+.nav-link:not(.active):hover {
+	border: 1px solid transparent !important;
+	opacity: 0.8;
+}
+
+.nav-item.show a {
+	background-color: rgb(255, 255, 255, 0.6) !important;
+	border: 1px solid transparent !important;
+	border-radius: 0;
+}
+
+.nav-item.show > a.active {
+	border: none !important;
+	border-bottom: 3px solid #075088 !important;
+}
+
+:not(.active) + .dropdown-menu {
+	margin-top: 0px !important;
+}
+
+.dropdown-menu .dropdown-item:hover {
+	background-color: rgb(225, 225, 225) !important;
+}
+
+.dropdown-menu .dropdown-item.active {
+	background-color: rgb(200, 200, 200) !important;
 }

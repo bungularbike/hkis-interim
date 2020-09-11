@@ -7,10 +7,14 @@ var firebaseConfig = {
     messagingSenderId: "623891731224",
     appId: "1:623891731224:web:cfc8c3ee29e20908c8c46d",
     measurementId: "G-E8XR3ZS8QZ"
- };
- firebase.initializeApp(firebaseConfig);
- firebase.analytics();
+};
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
 
+$("#fade").remove();
+$("#userName").html("Jack Rong");
+
+/*
 firebase.auth().onAuthStateChanged(function(user) {
 	if (!user) {
 		window.open("index.html", "_self");
@@ -36,3 +40,4 @@ $("#signOut").click(function() {
     $("#signOut").attr("disabled", true);
     firebase.auth().signOut();
 });
+*/

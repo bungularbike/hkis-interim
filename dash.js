@@ -13,14 +13,12 @@ firebase.analytics();
 
 var db = firebase.firestore();
 
-$("#fade").remove();
-$("#userName").html("Jack Rong")
-
 var storage = firebase.storage();
 
 var formatter = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" });
 
 db.collection("interims").orderBy("id").get().then(function(qS) {
+    $("h3.navbar-brand").html("Explore Trips (" + qS.size + ")");
     qS.forEach(function(doc) {
         var trip = doc.data();
         var categories = "";
@@ -63,7 +61,6 @@ db.collection("interims").orderBy("id").get().then(function(qS) {
     alert(error.message);
 });
 
-/*
 firebase.auth().onAuthStateChanged(function(user) {
 	if (!user) {
 		window.open("index.html", "_self");
@@ -89,5 +86,4 @@ $("#signOut").click(function() {
     $("#signOut").attr("disabled", true);
     firebase.auth().signOut();
 });
-*/
 

@@ -11,8 +11,48 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
+var db = firebase.firestore();
+
 $("#fade").remove();
 $("#userName").html("Jack Rong")
+
+var storage = firebase.storage();
+
+var formatter = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" });
+
+db.collection("interims").orderBy("id").get().then(function(qS) {
+    qS.forEach(function(doc) {
+        var trip = doc.data();
+        var categories = "";
+        if (trip.service) {
+            categories = "Service";
+        }
+        if (trip.culture) {
+            if (categories != "") {
+                categories += "<span class = 'mx-3'></span>";
+            }
+            categories += "Culture";
+        }
+        if (trip.adventure) {
+            if (categories != "") {
+                categories += "<span class = 'mx-3'></span>";
+            }
+            categories += "Adventure";
+        }
+        var price = formatter.format(trip.price);
+        price = price.substring(0, price.length - 3);
+        $(".card-columns").append("<div class = 'card' id = 'trip" + doc.id + "'><div class = 'card-body'><h4 class = 'card-title'>" + (trip.new ? "<span class = 'h4' style = 'color: red'>NEW </span>" : "") + trip.name + "</h6><h6 class = 'card-text'>" + categories + "</h6><h6 class = 'card-text'>" + price + "</h6><p class = 'card-text mb-0'>" + trip.description + "</p></div></div>");
+        storage.ref("previews/" + doc.id + ".jpg").getDownloadURL().then(function(url) {
+            $("#trip" + doc.id).prepend("<img src = \"" + url + "\" class = 'card-img-top'>");
+        }).catch(function(error) {
+            if (error.code != "storage/object-not-found") {
+                alert(error.message);
+            }
+        });
+    });
+}).catch(function(error) {
+    alert(error.message);
+});
 
 /*
 firebase.auth().onAuthStateChanged(function(user) {
@@ -41,3 +81,4 @@ $("#signOut").click(function() {
     firebase.auth().signOut();
 });
 */
+

@@ -9,7 +9,7 @@
 <body style = "background-color: #AA272F">
 	<div id = "fade">
 	</div>
-	<nav class = "navbar navbar-expand-lg navbar-light" style = "background-color: #075088">
+	<nav class = "navbar" style = "background-color: #075088">
 		<a class = "navbar-brand text-center" href = "#">
 			<img src = "resources/hkis.png" style = "height: 75px">
 			<h1 class = "ml-3" style = "display: inline; vertical-align: middle; color: white" id = "header">HKIS Interim Central</h1>
@@ -240,7 +240,7 @@
 			</div>
 		</div>
 	</div>
-	<div class = "card-deck flex-column flex-lg-row mx-4 mb-4">
+	<div class = "card-deck flex-column flex-lg-row m-4">
 		<div class = "card mb-4 mb-lg-0 mr-lg-4" style = "flex-grow: 1.2">
 			<div class = "card-body">
 				<h5 class = "card-title">SIGNING UP</h5>
@@ -265,6 +265,46 @@
 				<p class = "card-text">PLEASE NOTE (March SAT): if you are planning to take the March SAT - do NOT sign up for an overseas trip.</p>
 			</div>
 		</div>
+	</div>
+	<nav class = "navbar sticky-top flex-column" style = "background-color: #075088; padding: 2rem; padding-top: 0.5rem" id = "filterTrips">
+		<h3 class = "navbar-brand mb-0 mr-0" style = "color: white; font-size: 1.5rem; margin-bottom: -1rem !important">Explore Trips</h3>
+		<form class = "form-inline align-items-center justify-content-between">
+			<select class = "custom-select formSeparate">
+				<option value = "" selected>Region...</option>
+				<option value = "Africa">Africa</option>
+				<option value = "East Asia">East Asia</option>
+				<option value = "Europe">Europe</option>
+				<option value = "India/Nepal">India/Nepal</option>
+				<option value = "Oceania">Oceania</option>
+				<option value = "SE Asia">SE Asia</option>
+			</select>
+			<div class = "custom-control custom-checkbox mr-3">
+				<input class = "custom-control-input" type = "checkbox" id = "service">
+				<label class = "custom-control-label" for = "service" style = "color: white">Service</label>
+			</div>
+			<div class = "custom-control custom-checkbox mr-3">
+				<input class = "custom-control-input" type = "checkbox" id = "culture">
+				<label class = "custom-control-label" for = "culture" style = "color: white">Culture</label>
+			</div>
+			<div class = "custom-control custom-checkbox formSeparate">
+				<input class = "custom-control-input" type = "checkbox" id = "adventure">
+				<label class = "custom-control-label" for = "adventure" style = "color: white">Adventure</label>
+			</div>
+			<select class = "custom-select formSeparate">
+				<option value = "" selected>Price Bracket...</option>
+				<option value = "price1">$</option>
+				<option value = "price2">$$</option>
+				<option value = "price3">$$$</option>
+			</select>
+			<div class = "custom-control custom-checkbox formSeparate">
+				<input class = "custom-control-input" type = "checkbox" id = "newTrip">
+				<label class = "custom-control-label" for = "newTrip" style = "color: white">New Trip</label>
+			</div>
+			<input class = "form-control" type = "text" placeholder = "Search" style = "flex-grow: 1" id = "searchTrips">
+		</form>
+	</nav>
+	<div class = "card-columns m-4">
+		
 	</div>
 	<script src = "resources/jquery.min.js"></script>
 	<script src = "resources/popper.min.js"></script>

@@ -154,11 +154,11 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 .card-columns .card p {
-	overflow: hidden;
+	/*overflow: hidden;
 	text-overflow: ellipsis;
 	-webkit-line-clamp: 6;
 	display: -webkit-box;
-	-webkit-box-orient: vertical;
+	-webkit-box-orient: vertical;*/
 	margin-bottom: 0 !important;
 }
 
@@ -182,10 +182,23 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	cursor: pointer;
 }
 
-.card-columns .card:hover, .card-columns .card:focus {
-	filter: brightness(95%);
+.tripCard:hover, .tripCard:focus {
+	filter: brightness(95%) !important;
 }
 
-.card-columns .card:active, .card-columns .card.active {
-	filter: brightness(85%);
+.tripCard .card-body {
+	overflow: hidden;
+}
+
+#filterStar, .toggleStar {
+	color: #ffc107 !important;
+	cursor: pointer;
+	position: relative;
+	top: -2px;
+}
+
+.starHolder {
+	position: absolute;
+	top: calc(1em - 2px);
+	left: 1em;
 }

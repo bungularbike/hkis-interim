@@ -22,7 +22,7 @@ var starEmpty = '<svg width = "1.25em" height = "1.25em" viewBox = "0 0 16 16" f
 var currentStarred = [];
 
 db.collection("interims").orderBy("id").get().then(function(qS) {
-    $("h3.navbar-brand").html("Explore Trips (" + qS.size + ")");
+    $(".navbar-brand h3").html("Explore Trips (" + qS.size + ")");
     qS.forEach(function(doc) {
         var trip = doc.data();
         var id = trip.id;

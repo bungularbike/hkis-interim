@@ -202,3 +202,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	top: calc(1em - 2px);
 	left: 1em;
 }
+
+.tripHidden {
+	display: none !important;
+}

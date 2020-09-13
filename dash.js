@@ -255,4 +255,3 @@ $("#signOut").click(function() {
     $("#signOut").attr("disabled", true);
     firebase.auth().signOut();
 });
-*/

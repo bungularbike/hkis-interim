@@ -249,8 +249,12 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	}
 }
 
-#tripEditor * {
+#tripEditor div:first-of-type {
 	font-family: inherit !important;
+}
+
+#tripEditor div:first-of-type input, #tripEditor div:first-of-type select {
+	font-family: "Futura Bold" !important;
 }
 
 .textarea:not(#tripContent) {

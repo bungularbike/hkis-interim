@@ -213,7 +213,7 @@ function editTrip(id) {
 			$("#tripModal .modal-body").append("<h6 class = 'card-text' style = 'color: red'>NEW</h6>");
 		}
 		$("#tripModal .modal-body").append("<h6 class = 'card-text'>" + categories + "</h6>");
-		$("#tripModal .modal-body").append("<h6 class = 'card-text'>HKD$" + priceFormatted.substring(0, priceFormatted.length - 3) + "</h6>");
+		$("#tripModal .modal-body").append("<h6 class = 'card-text'>HKD" + priceFormatted.substring(0, priceFormatted.length - 3) + "</h6>");
 		$("#tripModal .modal-body").append("<p class = 'mb-2'><span class = 'h6'>Supervisors:</span> " + trip.supervisors + "</p>");
 		if (trip.room != "") {
 			$("#tripModal .modal-body").append("<p class = 'mb-2'><span class = 'h6'>Marketplace Room:</span> " + trip.room + "</p>");
@@ -378,6 +378,14 @@ $("#fillTemplate").click(function() {
 	CKEDITOR.instances["tripContent"].setData(template);
 });
 
+function checkSize() {
+	if ($(window).width < 996) {
+	alert("The admin dashboard is not optimized for mobile devices. Please use a desktop device to access the admin dashboard.");
+	window.open("dash.html", "_self");
+}
+$(window).resize(checkSize);
+checkSize();
+
 firebase.auth().onAuthStateChanged(function(user) {
 	if (!user) {
 		window.open("index.html", "_self");
@@ -390,10 +398,11 @@ firebase.auth().onAuthStateChanged(function(user) {
             }).done(function(data) {
             	if (data.admin == undefined) {
             		window.open("dash.html", "_self");
+            	} else {
+            		$("#userName").html(data.name);
+	                user_email = data.email;
+	                $("#fade").remove();
             	}
-                $("#userName").html(data.name);
-                user_email = data.email;
-                $("#fade").remove();
             }).fail(function(jqxhr) {
                 alert(jqxhr.responseText);
             });

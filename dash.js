@@ -100,7 +100,7 @@ function loadTrips() {
                     $("#tripModal .modal-body").append("<h6 class = 'card-text' style = 'color: red'>NEW</h6>");
                 }
                 $("#tripModal .modal-body").append("<h6 class = 'card-text'>" + categories + "</h6>");
-                $("#tripModal .modal-body").append("<h6 class = 'card-text'>HKD$" + price + "</h6>");
+                $("#tripModal .modal-body").append("<h6 class = 'card-text'>HKD" + price + "</h6>");
                 $("#tripModal .modal-body").append("<p class = 'mb-2'><span class = 'h6'>Supervisors:</span> " + trip.supervisors + "</p>");
                 if (trip.room != "") {
                     $("#tripModal .modal-body").append("<p class = 'mb-2'><span class = 'h6'>Marketplace Room:</span> " + trip.room + "</p>");

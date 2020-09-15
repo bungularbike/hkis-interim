@@ -70,7 +70,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	}
 }
 
-.card {
+.card, .modal-content, .list-group-item {
 	background-color: #e9ecef !important;
 }
 
@@ -224,4 +224,37 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 .navbar-toggler-icon {
 	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+}
+
+@media (min-width: 576px) and (max-width: 800px) {
+	#tripModal .modal-dialog {
+		max-width: 800px !important;
+		margin: 1.75rem !important;
+	}
+	#tripModal h3 {
+		font-size: 1.25rem !important;
+	}
+}
+
+@media (min-width: 800px) {
+	#tripModal .modal-dialog {
+		max-width: 800px !important;
+		margin: 1.75rem auto !important;
+	}
+}
+
+#tripEditor * {
+	font-family: inherit !important;
+}
+
+.textarea:not(#tripContent) {
+	resize: none !important;
+}
+
+.list-group-item-action:hover:not(.disabled) {
+	filter: brightness(95%);
+}
+
+.modal-body p:last-child {
+	margin-bottom: 0 !important;
 }

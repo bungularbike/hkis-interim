@@ -14,7 +14,7 @@
 			<img src = "resources/hkis.png" style = "height: 75px">
 			<h1 class = "ml-3" style = "display: inline; vertical-align: middle; color: white" id = "header">HKIS Interim Central</h1>
 		</a>
-		<div class = "d-flex flex-row align-items-center justify-content-center ml-sm-auto h4 mb-0 pr-sm-2" id = "statusBar" style = "font-family: Avenir">
+		<div class = "d-flex flex-row align-items-center justify-content-center ml-sm-auto h5 mb-0 pr-sm-2" id = "statusBar" style = "font-family: Avenir">
 			<span class = "navbar-text" style = "color: white" id = "userName">
 				
 			</span>
@@ -303,9 +303,9 @@
 				</div>
 				<select class = "custom-select formSeparate" id = "tripPrice">
 					<option value = "" selected>Price Bracket...</option>
-					<option value = "1">$</option>
-					<option value = "2">$$</option>
-					<option value = "3">$$$</option>
+					<option value = "1">$ (under $12K)</option>
+					<option value = "2">$$ ($12K - $20K)</option>
+					<option value = "3">$$$ (over $20K)</option>
 				</select>
 				<div class = "custom-control custom-checkbox formSeparate">
 					<input class = "custom-control-input" type = "checkbox" id = "newTrip">
@@ -315,8 +315,21 @@
 			</form>
 		</div>
 	</nav>
-	<div class = "card-columns m-4">
-		
+	<div class = "card-columns m-4">	
+	</div>
+	<div class = "modal fade" id = "tripModal" tabindex = "-1">
+		<div class = "modal-dialog modal-xl">
+			<div class = "modal-content">
+				<div class = "modal-header">
+					<h3 class = "modal-title"></h3>
+					<button type = "button" class = "close" data-dismiss = "modal">
+						<span>&times;</span>
+					</button>
+				</div>
+				<div class = "modal-body">
+				</div>
+			</div>
+		</div>
 	</div>
 	<script src = "resources/jquery.min.js"></script>
 	<script src = "resources/popper.min.js"></script>

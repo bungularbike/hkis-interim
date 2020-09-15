@@ -19,7 +19,7 @@ var formatter = new Intl.NumberFormat("en-US", { style: "currency", currency: "U
 
 var starFilled = '<svg width = "1.25em" height = "1.25em" viewBox = "0 0 16 16" fill = "currentColor" xmlns = "http://www.w3.org/2000/svg"><path d = "M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg>';
 var starEmpty = '<svg width = "1.25em" height = "1.25em" viewBox = "0 0 16 16" fill = "currentColor" xmlns = "http://www.w3.org/2000/svg" style = "vertical-align: middle"><path fill-rule = "evenodd" d = "M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.329-.314.158-.888-.283-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767l-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288l1.847-3.658 1.846 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.564.564 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" /></svg>';
-var tripList = [];
+var tripList = {};
 var currentStarred = [];
 var user_email = "";
 
@@ -55,12 +55,12 @@ function changeStar(id) {
 }
 
 function loadTrips() {
-    db.collection("interims").orderBy("id").get().then(function(qS) {
+    db.collection("interims").orderBy("name").get().then(function(qS) {
         $(".navbar-brand h3").html("Explore Trips (" + qS.size + ")");
         qS.forEach(function(doc) {
             var trip = doc.data();
             var id = trip.id;
-            tripList[id - 1] = [trip.name, trip.region, trip.service, trip.culture, trip.adventure, trip.price_bracket, trip.new];
+            tripList["id_" + id] = [trip.id, trip.name, trip.region, trip.service, trip.culture, trip.adventure, trip.price_bracket, trip.new];
             var categories = "";
             if (trip.service) {
                 categories = "Service";
@@ -79,7 +79,7 @@ function loadTrips() {
             }
             var price = formatter.format(trip.price);
             price = price.substring(0, price.length - 3);
-            $(".card-columns").append("<div class = 'card tripCard' tabindex = '0' ontouchstart = '' id = 'tripCard" + id + "'><div class = 'card-header'><div class = 'card-text toggleStar d-inline-block' id = 'toggleStar" + id + "' tabindex = '0' style = 'margin-bottom: 0 !important'>" + (currentStarred.indexOf(id) != -1 ? starFilled : starEmpty) + "</div></div><div class = 'card-body trip'><h4 class = 'card-title'>" + (trip.new ? "<span class = 'h4' style = 'color: red'>NEW </span>" : "") + trip.name + "</h6><h6 class = 'card-text'>" + categories + "</h6><h6 class = 'card-text'>HKD" + price + "</h6><p class = 'card-text mb-0'>" + trip.description + "</p></div></div>");
+            $(".card-columns").append("<div class = 'card tripCard' tabindex = '0' ontouchstart = '' id = 'tripCard" + id + "'><div class = 'card-header'><div class = 'card-text toggleStar d-inline-block' id = 'toggleStar" + id + "' tabindex = '0' style = 'margin-bottom: 0 !important'>" + (currentStarred.indexOf(id) != -1 ? starFilled : starEmpty) + "</div></div><div class = 'card-body trip'><h4 class = 'card-title mb-2'>" + (trip.new ? "<span class = 'h4' style = 'color: red'>NEW </span>" : "") + trip.name + "</h4><h6 class = 'card-text'>" + categories + "</h6><h6 class = 'card-text'>HKD" + price + "</h6><p class = 'card-text mb-0'>" + trip.description + "</p></div></div>");
             $clamp($("#tripCard" + id + " p")[0], { clamp: 5, useNativeClamp: false });
             $("#tripCard" + id).keypress(function(event) {
                 if (event.keyCode == 32) {
@@ -94,7 +94,28 @@ function loadTrips() {
                 }
             });
             $("#tripCard" + id).click(function() {
-               // alert("");
+                $("#tripModal .modal-title").html(trip.name);
+                $("#tripModal .modal-body").empty();
+                if (trip.new) {
+                    $("#tripModal .modal-body").append("<h6 class = 'card-text' style = 'color: red'>NEW</h6>");
+                }
+                $("#tripModal .modal-body").append("<h6 class = 'card-text'>" + categories + "</h6>");
+                $("#tripModal .modal-body").append("<h6 class = 'card-text'>HKD$" + price + "</h6>");
+                $("#tripModal .modal-body").append("<p class = 'mb-2'><span class = 'h6'>Supervisors:</span> " + trip.supervisors + "</p>");
+                if (trip.room != "") {
+                    $("#tripModal .modal-body").append("<p class = 'mb-2'><span class = 'h6'>Marketplace Room:</span> " + trip.room + "</p>");
+                }
+                $("#tripModal .modal-body").append("<h6 class = 'card-text'" + (trip.risk >= 3 ? " style = 'color: red'" : "") + ">Activity Risk Level " + trip.risk + "</h6>");
+                for (var i = 0; i < trip.warnings.length; i++) {
+                    $("#tripModal .modal-body").append("<h6 class = 'card-text' style = 'color: red'>" + trip.warnings[i] + "</h6>");
+                }
+                if (trip.video != "") {
+                    $("#tripModal .modal-body").append("<div class = 'p-3 my-4' style = 'background-color: #AA272F'><div class = 'embed-responsive embed-responsive-16by9'><iframe class = 'embed-responsive-item' allowfullscreen frame-border = '0' src = '" + trip.video + "'></iframe></div></div>");
+                } else {
+                    $("#tripModal .modal-body").append("<br>");
+                }
+                $("#tripModal .modal-body").append(trip.content);
+                $("#tripModal").modal("show");
             });
             $("#toggleStar" + id).click(function(event) {
                 event.preventDefault();
@@ -116,7 +137,6 @@ function loadTrips() {
                     event.stopPropagation();
                     changeStar(id);
                 });
-
             }).catch(function(error) {
                 if (error.code != "storage/object-not-found") {
                     alert(error.message);
@@ -143,73 +163,71 @@ $("#filterStar").click(function() {
 
 function filterTrips() {
     var matches = [];
-    for (var i = 0; i < tripList.length; i++) {
-        matches[i] = true;
+    for (var i in tripList) {
+        matches[tripList[i][0]] = true;
     }
     $(".tripCard").removeClass("tripHidden");
     if (toggleStar) {
-        for (var i = 0; i < tripList.length; i++) {
-            if (currentStarred.indexOf(i + 1) == -1) {
-                $("#tripCard" + (i + 1)).addClass("tripHidden");
-                matches[i] = false;
+        for (var i in tripList) {
+            if (currentStarred.indexOf(tripList[i][0]) == -1) {
+                $("#tripCard" + tripList[i][0]).addClass("tripHidden");
+                matches[tripList[i][0]] = false;
             }
         }
     }
     if ($("#tripRegion").val() !== "") {
-        for (var i = 0; i < tripList.length; i++) {
-            if (tripList[i][1] !== $("#tripRegion").val()) {
-                $("#tripCard" + (i + 1)).addClass("tripHidden");
-                matches[i] = false;
+        for (var i in tripList) {
+            if (tripList[i][2] !== $("#tripRegion").val()) {
+                $("#tripCard" + tripList[i][0]).addClass("tripHidden");
+                matches[tripList[i][0]] = false;
             }
         }
     }
     if ($("#service").is(":checked")) {
-        for (var i = 0; i < tripList.length; i++) {
-            if (!tripList[i][2]) {
-                $("#tripCard" + (i + 1)).addClass("tripHidden");
-                matches[i] = false;
+        for (var i in tripList) {
+            if (!tripList[i][3]) {
+                $("#tripCard" + tripList[i][0]).addClass("tripHidden");
+                matches[tripList[i][0]] = false;
             }
         }
     }
     if ($("#culture").is(":checked")) {
-        for (var i = 0; i < tripList.length; i++) {
-            if (!tripList[i][3]) {
-                $("#tripCard" + (i + 1)).addClass("tripHidden");
-                matches[i] = false;
+        for (var i in tripList) {
+            if (!tripList[i][4]) {
+                $("#tripCard" + tripList[i][0]).addClass("tripHidden");
+                matches[tripList[i][0]] = false;
             }
         }
     }
     if ($("#adventure").is(":checked")) {
-        for (var i = 0; i < tripList.length; i++) {
-            if (!tripList[i][4]) {
-                $("#tripCard" + (i + 1)).addClass("tripHidden");
-                matches[i] = false;
+        for (var i in tripList) {
+            if (!tripList[i][5]) {
+                $("#tripCard" + tripList[i][0]).addClass("tripHidden");
+                matches[tripList[i][0]] = false;
             }
         }
     }
     if ($("#tripPrice").val() !== "") {
-        for (var i = 0; i < tripList.length; i++) {
-            if (tripList[i][5].toString() !== $("#tripPrice").val()) {
-                $("#tripCard" + (i + 1)).addClass("tripHidden");
-                matches[i] = false;
+        for (var i in tripList) {
+            if (tripList[i][6].toString() !== $("#tripPrice").val()) {
+                $("#tripCard" + tripList[i][0]).addClass("tripHidden");
+                matches[tripList[i][0]] = false;
             }
         }
     }
     if ($("#newTrip").is(":checked")) {
-        for (var i = 0; i < tripList.length; i++) {
-            if (!tripList[i][6]) {
-                $("#tripCard" + (i + 1)).addClass("tripHidden");
-                matches[i] = false;
+        for (var i in tripList) {
+            if (!tripList[i][7]) {
+                $("#tripCard" + tripList[i][0]).addClass("tripHidden");
+                matches[tripList[i][0]] = false;
             }
         }
     }
-    if (tripList.length != 0) {
-        if ($("#searchTrips").val() !== "") {
-            for (var i = 0; i < tripList.length; i++) {
-                if (tripList[i][0].toLowerCase().indexOf($("#searchTrips").val().toLowerCase()) == -1) {
-                    $("#tripCard" + (i + 1)).addClass("tripHidden");
-                    matches[i] = false;
-                }
+    if ($("#searchTrips").val() !== "") {
+        for (var i in tripList) {
+            if (tripList[i][1].toLowerCase().indexOf($("#searchTrips").val().toLowerCase()) == -1) {
+                $("#tripCard" + tripList[i][0]).addClass("tripHidden");
+                matches[tripList[i][0]] = false;
             }
         }
     }

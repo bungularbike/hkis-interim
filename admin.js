@@ -384,7 +384,9 @@ function checkSize() {
 		window.open("dash.html", "_self");
 	}
 }
-$(window).resize(checkSize);
+$(window).resize(function() {
+	checkSize();
+});
 checkSize();
 
 firebase.auth().onAuthStateChanged(function(user) {

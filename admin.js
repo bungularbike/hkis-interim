@@ -388,7 +388,7 @@ firebase.auth().onAuthStateChanged(function(user) {
                 url: "https://hkisinterimcentral.herokuapp.com/student?token=" + token,
                 dataType: "json"
             }).done(function(data) {
-            	if (data.admin != undefined) {
+            	if (data.admin == undefined) {
             		window.open("dash.html", "_self");
             	}
                 $("#userName").html(data.name);

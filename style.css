@@ -64,7 +64,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 @media (max-width: 576px){
-	#signOut {
+	#signOut, #adminDash {
 		font-size: calc(0.75rem + .3vw);
 		height: calc(2rem + .3vw);
 	}
@@ -231,6 +231,12 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 		max-width: 800px !important;
 		margin: 1.75rem !important;
 	}
+	#tripModal h3 {
+		font-size: 1.25rem !important;
+	}
+}
+
+@media (max-width: 576px) {
 	#tripModal h3 {
 		font-size: 1.25rem !important;
 	}

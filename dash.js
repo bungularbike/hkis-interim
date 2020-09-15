@@ -258,6 +258,12 @@ firebase.auth().onAuthStateChanged(function(user) {
                 url: "https://hkisinterimcentral.herokuapp.com/student?token=" + token,
                 dataType: "json"
             }).done(function(data) {
+                if (data.admin != undefined) {
+                    $("#signOut").insertBefore("<button class = 'btn btn-info ml-4' id = 'adminDash'>Admin Dashboard</button>");
+                    $("#adminDash").click(function() {
+                        window.open("admin.html", "_self");
+                    });
+                }
                 $("#userName").html(data.name);
                 user_email = data.email;
                 $("#fade").remove();

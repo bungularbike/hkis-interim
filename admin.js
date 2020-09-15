@@ -408,3 +408,7 @@ $("#signOut").click(function() {
     $("#signOut").attr("disabled", true);
     firebase.auth().signOut();
 });
+
+$("#adminDash").click(function() {
+	window.open("dash.html", "_self");
+});

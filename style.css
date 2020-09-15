@@ -261,6 +261,16 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	filter: brightness(95%);
 }
 
+.modal-body {
+	position: relative;
+}
+
 .modal-body p:last-child {
 	margin-bottom: 0 !important;
+}
+
+.modalStar {
+	position: absolute;
+	top: 0.5em;
+	right: 0.75em;
 }

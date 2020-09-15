@@ -33,11 +33,12 @@ function getUserData() {
     });
 }
 
-function changeStar(id) {
+function changeStar(id, debug) {
+    console.log(debug);
     if (currentStarred.indexOf(id) != -1) {
         currentStarred.splice(currentStarred.indexOf(id), 1);
         db.collection("users_students").doc(user_email).update({ starred: currentStarred }).then(function() {
-            $("#toggleStar" + id).html(starEmpty);
+            $(".toggleStar" + id).html(starEmpty);
             if (toggleStar) {
                 filterTrips();
             }
@@ -47,7 +48,7 @@ function changeStar(id) {
     } else {
         currentStarred[currentStarred.length] = id;
         db.collection("users_students").doc(user_email).update({ starred: currentStarred }).then(function() {
-            $("#toggleStar" + id).html(starFilled);
+            $(".toggleStar" + id).html(starFilled);
         }).catch(function(error) {
             alert(error.message);
         });
@@ -79,7 +80,7 @@ function loadTrips() {
             }
             var price = formatter.format(trip.price);
             price = price.substring(0, price.length - 3);
-            $(".card-columns").append("<div class = 'card tripCard' tabindex = '0' ontouchstart = '' id = 'tripCard" + id + "'><div class = 'card-header'><div class = 'card-text toggleStar d-inline-block' id = 'toggleStar" + id + "' tabindex = '0' style = 'margin-bottom: 0 !important'>" + (currentStarred.indexOf(id) != -1 ? starFilled : starEmpty) + "</div></div><div class = 'card-body trip'><h4 class = 'card-title mb-2'>" + (trip.new ? "<span class = 'h4' style = 'color: red'>NEW </span>" : "") + trip.name + "</h4><h6 class = 'card-text'>" + categories + "</h6><h6 class = 'card-text'>HKD" + price + "</h6><p class = 'card-text mb-0'>" + trip.description + "</p></div></div>");
+            $(".card-columns").append("<div class = 'card tripCard' tabindex = '0' ontouchstart = '' id = 'tripCard" + id + "'><div class = 'card-header'><div class = 'card-text toggleStar d-inline-block toggleStar" + id + "' tabindex = '0' style = 'margin-bottom: 0 !important'>" + (currentStarred.indexOf(id) != -1 ? starFilled : starEmpty) + "</div></div><div class = 'card-body trip'><h4 class = 'card-title mb-2'>" + (trip.new ? "<span class = 'h4' style = 'color: red'>NEW </span>" : "") + trip.name + "</h4><h6 class = 'card-text'>" + categories + "</h6><h6 class = 'card-text'>HKD" + price + "</h6><p class = 'card-text mb-0'>" + trip.description + "</p></div></div>");
             $clamp($("#tripCard" + id + " p")[0], { clamp: 5, useNativeClamp: false });
             $("#tripCard" + id).keypress(function(event) {
                 if (event.keyCode == 32) {
@@ -87,17 +88,38 @@ function loadTrips() {
                     return false;
                 }
             });
-            $("#toggleStar" + id).keypress(function(event) {
+            $(".toggleStar" + id).off("click");
+            $(".toggleStar" + id).off("keypress");
+            $(".toggleStar" + id).click(function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+                changeStar(id, "normal");
+            });
+            $(".toggleStar" + id).keypress(function(event) {
                 if (event.keyCode == 32) {
-                    $("#toggleStar" + id).trigger("click");
+                    $(this).trigger("click");
                     return false;
                 }
             });
             $("#tripCard" + id).click(function() {
                 $("#tripModal .modal-title").html(trip.name);
                 $("#tripModal .modal-body").empty();
+                $("#tripModal .modal-body").append("<div class = 'modalStar toggleStar toggleStar" + id + "' tabindex = '0'>" + (currentStarred.indexOf(id) != -1 ? starFilled : starEmpty) + "</div>");
+                $(".toggleStar" + id).off("click");
+                $(".toggleStar" + id).off("keypress");
+                $(".toggleStar" + id).click(function(event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    changeStar(id, "modal");
+                });
+                $(".toggleStar" + id).keypress(function(event) {
+                    if (event.keyCode == 32) {
+                        $(this).trigger("click");
+                        return false;
+                    }
+                });
                 if (trip.new) {
-                    $("#tripModal .modal-body").append("<h6 class = 'card-text' style = 'color: red'>NEW</h6>");
+                    $("#tripModal .modal-body").append("<div class = 'd-flex flex-column-reverse flex-md-row mb-2'><div><h6 class = 'card-text' style = 'color: red'>NEW</h6>");
                 }
                 $("#tripModal .modal-body").append("<h6 class = 'card-text'>" + categories + "</h6>");
                 $("#tripModal .modal-body").append("<h6 class = 'card-text'>HKD" + price + "</h6>");
@@ -117,25 +139,22 @@ function loadTrips() {
                 $("#tripModal .modal-body").append(trip.content);
                 $("#tripModal").modal("show");
             });
-            $("#toggleStar" + id).click(function(event) {
-                event.preventDefault();
-                event.stopPropagation();
-                changeStar(id);
-            });
             storage.ref("previews/" + id + ".jpg").getDownloadURL().then(function(url) {
-                $("#tripCard" + id).prepend("<div class = 'starHolder toggleStar' id = 'toggleStar" + id + "' tabindex = '0'>" + (currentStarred.indexOf(id) != -1 ? starFilled : starEmpty) + "</div>");
+                $("#tripCard" + id).prepend("<div class = 'starHolder toggleStar toggleStar" + id + "' tabindex = '0'>" + (currentStarred.indexOf(id) != -1 ? starFilled : starEmpty) + "</div>");
                 $("#tripCard" + id).prepend("<img src = \"" + url + "\" style = 'position: relative' class = 'card-img-top trip'>");
                 $("#tripCard" + id + " .card-header").remove();
-                $("#toggleStar" + id).keypress(function(event) {
-                    if (event.keyCode == 32) {
-                        $("#toggleStar" + id).trigger("click");
-                        return false;
-                    }
-                });
-                $("#toggleStar" + id).click(function(event) {
+                $(".toggleStar" + id).off("click");
+                $(".toggleStar" + id).off("keypress");
+                $(".toggleStar" + id).click(function(event) {
                     event.preventDefault();
                     event.stopPropagation();
-                    changeStar(id);
+                    changeStar(id, "picture");
+                });
+                $(".toggleStar" + id).keypress(function(event) {
+                    if (event.keyCode == 32) {
+                        $(this).trigger("click");
+                        return false;
+                    }
                 });
             }).catch(function(error) {
                 if (error.code != "storage/object-not-found") {

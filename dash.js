@@ -259,7 +259,7 @@ firebase.auth().onAuthStateChanged(function(user) {
                 dataType: "json"
             }).done(function(data) {
                 if (data.admin != undefined) {
-                    $("#signOut").insertBefore("<button class = 'btn btn-info ml-4' id = 'adminDash'>Admin Dashboard</button>");
+                    $("#signOut").before("<button class = 'btn btn-info ml-4' id = 'adminDash'>Admin Dashboard</button>");
                     $("#adminDash").click(function() {
                         window.open("admin.html", "_self");
                     });

@@ -248,6 +248,10 @@ $("#searchTrips").on("input", function() {
     filterTrips();
 });
 
+$("form").submit(function() {
+    return false;
+});
+
 firebase.auth().onAuthStateChanged(function(user) {
 	if (!user) {
 		window.open("index.html", "_self");

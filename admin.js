@@ -380,8 +380,9 @@ $("#fillTemplate").click(function() {
 
 function checkSize() {
 	if ($(window).width < 996) {
-	alert("The admin dashboard is not optimized for mobile devices. Please use a desktop device to access the admin dashboard.");
-	window.open("dash.html", "_self");
+		alert("The admin dashboard is not optimized for mobile devices. Please use a desktop device to access the admin dashboard.");
+		window.open("dash.html", "_self");
+	}
 }
 $(window).resize(checkSize);
 checkSize();

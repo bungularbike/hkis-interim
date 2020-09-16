@@ -318,7 +318,7 @@ db.collection("interims").orderBy("name").get().then(function(qS) {
 		});
 		$("#tripItem" + trip.id).keypress(function(event) {
 			if (event.keyCode == 32) {
-                $("#tripItem" + id).trigger("click");
+                $("#tripItem" + trip.id).trigger("click");
                 return false;
             }
 		});

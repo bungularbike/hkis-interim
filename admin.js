@@ -312,9 +312,15 @@ db.collection("interims").orderBy("name").get().then(function(qS) {
 	qS.forEach(function(doc) {
 		var trip = doc.data();
 		tripList["id_" + trip.id] = [trip.id, trip.name];
-		$(".list-group").append("<a href = '#' class = 'list-group-item list-group-item-action' id = 'tripItem" + trip.id + "'><h5 class = 'mb-1'>" + trip.name + "</h5></a>");
+		$(".list-group").append("<a href = '#' class = 'list-group-item list-group-item-action' id = 'tripItem" + trip.id + "' tabindex = '0'><h5 class = 'mb-1'>" + trip.name + "</h5></a>");
 		$("#tripItem" + trip.id).click(function() {
 			editTrip(trip.id);
+		});
+		$("#tripItem" + trip.id).keypress(function(event) {
+			if (event.keyCode == 32) {
+                $("#tripItem" + id).trigger("click");
+                return false;
+            }
 		});
 		if (lastId < trip.id) {
 			lastId = trip.id;

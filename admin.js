@@ -338,9 +338,9 @@ $("#tripPrice").on("input", function() {
 		var priceFormatted = formatter.format($("#tripPrice").val());
 		$("#priceFormatted").html("HKD" + priceFormatted.substring(0, priceFormatted.length - 3));
 		var priceBracket = "";
-		if (price < 12000) {
+		if (price <= 5000) {
 			$("#priceBracket").html("$");
-		} else if (price >= 12000 && price <= 20000) {
+		} else if (price > 5000 && price <= 8000) {
 			$("#priceBracket").html("$$");
 		} else {
 			$("#priceBracket").html("$$$")

@@ -61,7 +61,7 @@ function loadTrips() {
         qS.forEach(function(doc) {
             var trip = doc.data();
             var id = trip.id;
-            tripList["id_" + id] = [trip.id, trip.name, trip.region, trip.service, trip.culture, trip.adventure, trip.price_bracket, trip.new];
+            tripList["id_" + id] = [trip.id, trip.name, "", trip.service, trip.culture, trip.adventure, trip.price_bracket, ""];
             var categories = "";
             if (trip.service) {
                 categories = "Service";
@@ -80,7 +80,7 @@ function loadTrips() {
             }
             var price = formatter.format(trip.price);
             price = price.substring(0, price.length - 3);
-            $(".card-columns").append("<div class = 'card tripCard' tabindex = '0' ontouchstart = '' id = 'tripCard" + id + "'><div class = 'card-header'><div class = 'card-text toggleStar d-inline-block toggleStar" + id + "' tabindex = '0' style = 'margin-bottom: 0 !important'>" + (currentStarred.indexOf(id) != -1 ? starFilled : starEmpty) + "</div></div><div class = 'card-body trip'><h4 class = 'card-title mb-2'>" + (trip.new ? "<span class = 'h4' style = 'color: red'>NEW </span>" : "") + trip.name + "</h4><h6 class = 'card-text'>" + categories + "</h6><h6 class = 'card-text'>HKD" + price + "</h6><p class = 'card-text mb-0'>" + trip.description + "</p></div></div>");
+            $(".card-columns").append("<div class = 'card tripCard' tabindex = '0' ontouchstart = '' id = 'tripCard" + id + "'><div class = 'card-header'><div class = 'card-text toggleStar d-inline-block toggleStar" + id + "' tabindex = '0' style = 'margin-bottom: 0 !important'>" + (currentStarred.indexOf(id) != -1 ? starFilled : starEmpty) + "</div></div><div class = 'card-body trip'><h4 class = 'card-title mb-2'>" + trip.name + "</h4><h6 class = 'card-text'>" + categories + "</h6><h6 class = 'card-text'>HKD" + price + "</h6><p class = 'card-text mb-0'>" + trip.description + "</p></div></div>");
             $clamp($("#tripCard" + id + " p")[0], { clamp: 5, useNativeClamp: false });
             $("#tripCard" + id).keypress(function(event) {
                 if (event.keyCode == 32) {
@@ -118,9 +118,9 @@ function loadTrips() {
                         return false;
                     }
                 });
-                if (trip.new) {
+                /* if (trip.new) {
                     $("#tripModal .modal-body").append("<div class = 'd-flex flex-column-reverse flex-md-row mb-2'><div><h6 class = 'card-text' style = 'color: red'>NEW</h6>");
-                }
+                } */
                 $("#tripModal .modal-body").append("<h6 class = 'card-text'>" + categories + "</h6>");
                 $("#tripModal .modal-body").append("<h6 class = 'card-text'>HKD" + price + "</h6>");
                 $("#tripModal .modal-body").append("<p class = 'mb-2'><span class = 'h6'>Supervisors:</span> " + trip.supervisors + "</p>");
@@ -194,6 +194,7 @@ function filterTrips() {
             }
         }
     }
+    /*
     if ($("#tripRegion").val() !== "") {
         for (var i in tripList) {
             if (tripList[i][2] !== $("#tripRegion").val()) {
@@ -202,6 +203,7 @@ function filterTrips() {
             }
         }
     }
+    */
     if ($("#service").is(":checked")) {
         for (var i in tripList) {
             if (!tripList[i][3]) {
@@ -234,14 +236,14 @@ function filterTrips() {
             }
         }
     }
-    if ($("#newTrip").is(":checked")) {
+    /* if ($("#newTrip").is(":checked")) {
         for (var i in tripList) {
             if (!tripList[i][7]) {
                 $("#tripCard" + tripList[i][0]).addClass("tripHidden");
                 matches[tripList[i][0]] = false;
             }
         }
-    }
+    } */
     if ($("#searchTrips").val() !== "") {
         for (var i in tripList) {
             if (tripList[i][1].toLowerCase().indexOf($("#searchTrips").val().toLowerCase()) == -1) {
@@ -259,7 +261,7 @@ function filterTrips() {
     $(".navbar-brand h3").html("Explore Trips (" + totalMatches + ")");
 }
 
-$("#tripRegion, #service, #culture, #adventure, #tripPrice, #newTrip").on("change", function() {
+$("#service, #culture, #adventure, #tripPrice").on("change", function() {
     filterTrips();
 });
 

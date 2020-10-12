@@ -55,12 +55,12 @@ function saveTrip(id) {
 	var trip = {
 		id: id,
 		name: $("#tripName").val(),
-		region: $("#tripRegion").val(),
+		// region: $("#tripRegion").val(),
 		service: $("#service").is(":checked"),
 		culture: $("#culture").is(":checked"),
 		adventure: $("#adventure").is(":checked"),
 		price: $("#tripPrice").val(),
-		new: $("#new").is(":checked"),
+		// new: $("#new").is(":checked"),
 		supervisors: $("#tripSupervisors").val(),
 		room: $("#tripRoom").val(),
 		risk: Number($("#tripRisk").val()),
@@ -161,7 +161,7 @@ function editTrip(id) {
 	db.collection("interims").doc(id.toString()).get().then(function(doc) {
 		var trip = doc.data();
 		$("#tripName").val(trip.name);
-		$("#tripRegion").val(trip.region);
+		// $("#tripRegion").val(trip.region);
 		$("#service").prop("checked", trip.service);
 		$("#culture").prop("checked", trip.culture);
 		$("#adventure").prop("checked", trip.adventure);
@@ -170,14 +170,14 @@ function editTrip(id) {
 		var priceFormatted = formatter.format($("#tripPrice").val());
 		$("#priceFormatted").html("HKD" + priceFormatted.substring(0, priceFormatted.length - 3));
 		var priceBracket = "";
-		if (price < 12000) {
+		if (price <= 5000) {
 			$("#priceBracket").html("$");
-		} else if (price >= 12000 && price <= 20000) {
+		} else if (price > 5000 && price <= 8000) {
 			$("#priceBracket").html("$$");
 		} else {
 			$("#priceBracket").html("$$$")
 		}
-		$("#new").prop("checked", trip.new);
+		// $("#new").prop("checked", trip.new);
 		$("#tripSupervisors").val(trip.supervisors);
 		$("#tripRoom").val(trip.room);
 		$("#tripRisk").val(trip.risk);
@@ -206,12 +206,12 @@ function editTrip(id) {
         $("#previewCard .starHolder").remove();
         $("#previewCard .card-header").remove();
         $("#previewCard").prepend("<div class = 'card-header'><div class = 'card-text toggleStar d-inline-block' style = 'margin-bottom: 0 !important; cursor: default !important'>" + starEmpty + "</div></div>");
-		$("#previewCard .card-body").html("<h4 class = 'card-title mb-2'>" + (trip.new ? "<span class = 'h4' style = 'color: red'>NEW </span>" : "") + trip.name + "</h6><h6 class = 'card-text'>" + categories + "</h6><h6 class = 'card-text'>HKD" + priceFormatted.substring(0, priceFormatted.length - 3) + "</h6><p class = 'card-text mb-0' id = 'previewDescription'>" + trip.description + "</p>");
+		$("#previewCard .card-body").html("<h4 class = 'card-title mb-2'>" + trip.name + "</h6><h6 class = 'card-text'>" + categories + "</h6><h6 class = 'card-text'>HKD" + priceFormatted.substring(0, priceFormatted.length - 3) + "</h6><p class = 'card-text mb-0' id = 'previewDescription'>" + trip.description + "</p>");
 		$("#tripModal .modal-title").html(trip.name);
 		$("#tripModal .modal-body").empty();
-		if (trip.new) {
+		/* if (trip.new) {
 			$("#tripModal .modal-body").append("<h6 class = 'card-text' style = 'color: red'>NEW</h6>");
-		}
+		} */
 		$("#tripModal .modal-body").append("<h6 class = 'card-text'>" + categories + "</h6>");
 		$("#tripModal .modal-body").append("<h6 class = 'card-text'>HKD" + priceFormatted.substring(0, priceFormatted.length - 3) + "</h6>");
 		$("#tripModal .modal-body").append("<p class = 'mb-2'><span class = 'h6'>Supervisors:</span> " + trip.supervisors + "</p>");
@@ -281,14 +281,14 @@ function editTrip(id) {
 $("#newTrip").click(function() {
 	$("h3.card-title").html("<h3 class = 'card-title mb-0'>Editing NEW TRIP <span class = 'h3' style = 'color: red'>ID " + (lastId + 1) + "</span></h3>");
 	$("#tripName").val("NEW TRIP");
-	$("#tripRegion").val("Region...");
+	// $("#tripRegion").val("Region...");
 	$("#service").prop("checked", false);
 	$("#culture").prop("checked", false);
 	$("#adventure").prop("checked", false);
 	$("#tripPrice").val("0");
 	$("#priceFormatted").html("HKD$0");
 	$("#priceBracket").html("$");
-	$("#new").prop("checked", false);
+	// $("#new").prop("checked", false);
 	$("#tripSupervisors").val("");
 	$("#tripRoom").val("");
 	$("#tripRisk").val("1");

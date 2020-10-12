@@ -305,7 +305,7 @@ $("#newTrip").click(function() {
 	imageChanged = false;
 	$("#tripVideo").val("");
 	$("#shortDescription").val("");
-	CKEDITOR.instances["tripContent"].setData(template = "<h3>OBJECTIVES</h3><ul><li>&nbsp;</li></ul><h3>DESCRIPTION</h3><p>&nbsp;</p><h3>SKILLS</h3><ul><li>&nbsp;</li></ul><h3>REQUIRED PRE-INTERIM TRAINING OR ACTIVITIES</h3><p>&nbsp;</p><h3>ADDITIONAL RESPONSIBILITIES</h3><p>&nbsp;</p><h3>Flight Info</h3><p>Depart:  Return: </p>");
+	CKEDITOR.instances["tripContent"].setData(template = "<h3>OBJECTIVES</h3><ul><li>&nbsp;</li></ul><h3>DESCRIPTION</h3><p>&nbsp;</p><h3>SKILLS</h3><ul><li>&nbsp;</li></ul><h3>REQUIRED PRE-INTERIM TRAINING OR ACTIVITIES</h3><p>&nbsp;</p><h3>ADDITIONAL RESPONSIBILITIES</h3><p>&nbsp;</p>");
 	$("#tripEditor").removeClass("d-none");
 	$("#previewCard").addClass("d-none");
 	$("#saveTrip").click(function() {
@@ -387,11 +387,11 @@ $("#previewClear").click(function() {
 });
 
 $("#fillTemplate").click(function() {
-	template = "<h3>OBJECTIVES</h3><ul><li>&nbsp;</li></ul><h3>DESCRIPTION</h3><p>&nbsp;</p><h3>SKILLS</h3><ul><li>&nbsp;</li></ul><h3>REQUIRED PRE-INTERIM TRAINING OR ACTIVITIES</h3><p>&nbsp;</p><h3>ADDITIONAL RESPONSIBILITIES</h3><p>&nbsp;</p><h3>Flight Info</h3><p>Depart:  Return: </p>";
+	template = "<h3>OBJECTIVES</h3><ul><li>&nbsp;</li></ul><h3>DESCRIPTION</h3><p>&nbsp;</p><h3>SKILLS</h3><ul><li>&nbsp;</li></ul><h3>REQUIRED PRE-INTERIM TRAINING OR ACTIVITIES</h3><p>&nbsp;</p><h3>ADDITIONAL RESPONSIBILITIES</h3><p>&nbsp;</p>";
 	CKEDITOR.instances["tripContent"].setData(template);
 });
 
-function checkSize() {
+/* function checkSize() {
 	if ($(window).width() < 996) {
 		alert("The admin dashboard is not optimized for mobile devices. Please use a desktop device to access the admin dashboard.");
 		window.open("dash.html", "_self");
@@ -400,7 +400,7 @@ function checkSize() {
 $(window).resize(function() {
 	checkSize();
 });
-checkSize();
+checkSize(); */
 
 firebase.auth().onAuthStateChanged(function(user) {
 	if (!user) {

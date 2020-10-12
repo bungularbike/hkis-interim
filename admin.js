@@ -69,6 +69,13 @@ function saveTrip(id) {
 		description: $("#shortDescription").val(),
 		content: CKEDITOR.instances["tripContent"].getData()
 	};
+	if (trip.price <= 5000) {
+		trip.price_bracket = 1;
+	} else if (trip.price > 5000 && trip.price <= 8000) {
+		trip.price_bracket = 2;
+	} else {
+		trip.price_bracket = 3;
+	}
 	db.collection("interims").doc(id.toString()).set(trip).then(function() {
 		if (!noImage && imageChanged) {
 			var ref = storage.ref("previews/" + id + ".jpg");

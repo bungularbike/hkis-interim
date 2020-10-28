@@ -20,9 +20,6 @@ var formatter = new Intl.NumberFormat("en-US", { style: "currency", currency: "U
 var toolbarGroups = [{ name: "styles", items: ["Format"] }, { name: "basicstyles", items: ["Bold", "Italic", "Underline"] }, { name: "paragraph", items: ["BulletedList", "NumberedList", "-", "Outdent", "Indent"] }, { name: "links", items: ["Link", "Unlink"] }];
 CKEDITOR.replace("tripContent", { toolbar: toolbarGroups, format_h1: { element: "h3" }, format_tags: "p;h1" });
 
-$("#fade").remove();
-$("#userName").html("Jack Rong");
-
 var tripList = {};
 var lastId = 0;
 
@@ -328,7 +325,7 @@ firebase.auth().onAuthStateChanged(function(user) {
             	} else {
             		$("#userName").html(data.name);
 	                user_email = data.email;
-	                $("#fade").remove();
+	                $("#fade").fadeOut(function() { $(this).remove() });
             	}
             }).fail(function(jqxhr) {
                 alert(jqxhr.responseText);

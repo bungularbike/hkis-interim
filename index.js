@@ -16,7 +16,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 	if (user && !login) {
 		window.open("dash.html", "_self");
 	} else {
-		$("#fade").remove();
+		$("#fade").fadeOut(function() { $(this).remove() });
 	}
 });
 

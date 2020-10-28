@@ -295,7 +295,7 @@ firebase.auth().onAuthStateChanged(function(user) {
                 }
                 $("#userName").html(data.name);
                 user_email = data.email;
-                $("#fade").remove();
+                $("#fade").fadeOut(function() { $(this).remove() });
                 getUserData();
             }).fail(function(jqxhr) {
                 alert(jqxhr.responseText);

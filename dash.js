@@ -202,7 +202,7 @@ function filterTrips() {
     */
     if ($("#tripCategory").val() !== "") {
         for (var i in tripList) {
-            if (tripList[i][3] !== $("#tripRegion").val()) {
+            if (tripList[i][3] !== $("#tripCategory").val()) {
                 $("#tripCard" + tripList[i][0]).addClass("tripHidden");
                 matches[tripList[i][0]] = false;
             }
@@ -265,7 +265,7 @@ function filterTrips() {
     $(".navbar-brand h3").html("Explore Trips (" + totalMatches + ")");
 }
 
-$("#service, #culture, #adventure, #tripPrice").on("change", function() {
+$("#tripCategory, #tripPrice").on("change", function() {
     filterTrips();
 });
 

@@ -61,8 +61,8 @@ function loadTrips() {
         qS.forEach(function(doc) {
             var trip = doc.data();
             var id = trip.id;
-            tripList["id_" + id] = [trip.id, trip.name, "", trip.service, trip.culture, trip.adventure, trip.price_bracket, ""];
-            var categories = "";
+            tripList["id_" + id] = [trip.id, trip.name, "", trip.category, "", "", trip.price_bracket, ""];
+            /* var categories = "";
             if (trip.service) {
                 categories = "Service";
             }
@@ -77,7 +77,7 @@ function loadTrips() {
                     categories += "<span class = 'mx-3'></span>";
                 }
                 categories += "Adventure";
-            }
+            } */
             var price = formatter.format(trip.price);
             price = price.substring(0, price.length - 3);
             $(".card-columns").append("<div class = 'card tripCard' tabindex = '0' ontouchstart = '' id = 'tripCard" + id + "'><div class = 'card-header'><div class = 'card-text toggleStar d-inline-block toggleStar" + id + "' tabindex = '0' style = 'margin-bottom: 0 !important'>" + (currentStarred.indexOf(id) != -1 ? starFilled : starEmpty) + "</div></div><div class = 'card-body trip'><h4 class = 'card-title mb-2'>" + trip.name + "</h4><h6 class = 'card-text'>" + categories + "</h6><h6 class = 'card-text'>HKD" + price + "</h6><p class = 'card-text mb-0'>" + trip.description + "</p></div></div>");
@@ -139,9 +139,9 @@ function loadTrips() {
                 $("#tripModal .modal-body").append(trip.content);
                 $("#tripModal").modal("show");
             });
-            storage.ref("previews/" + id + ".jpg").getDownloadURL().then(function(url) {
+            if (trip.image != "") {
                 $("#tripCard" + id).prepend("<div class = 'starHolder toggleStar toggleStar" + id + "' tabindex = '0'>" + (currentStarred.indexOf(id) != -1 ? starFilled : starEmpty) + "</div>");
-                $("#tripCard" + id).prepend("<img src = \"" + url + "\" style = 'position: relative' class = 'card-img-top trip'>");
+                $("#tripCard" + id).prepend("<img src = \"" + trip.image + "\" style = 'position: relative' class = 'card-img-top trip'>");
                 $("#tripCard" + id + " .card-header").remove();
                 $(".toggleStar" + id).off("click");
                 $(".toggleStar" + id).off("keypress");
@@ -156,11 +156,7 @@ function loadTrips() {
                         return false;
                     }
                 });
-            }).catch(function(error) {
-                if (error.code != "storage/object-not-found") {
-                    alert(error.message);
-                }
-            });
+            }
         });
     }).catch(function(error) {
         alert(error.message);
@@ -204,7 +200,15 @@ function filterTrips() {
         }
     }
     */
-    if ($("#service").is(":checked")) {
+    if ($("#tripCategory").val() !== "") {
+        for (var i in tripList) {
+            if (tripList[i][3] !== $("#tripRegion").val()) {
+                $("#tripCard" + tripList[i][0]).addClass("tripHidden");
+                matches[tripList[i][0]] = false;
+            }
+        }
+    }
+    /*if ($("#service").is(":checked")) {
         for (var i in tripList) {
             if (!tripList[i][3]) {
                 $("#tripCard" + tripList[i][0]).addClass("tripHidden");
@@ -227,7 +231,7 @@ function filterTrips() {
                 matches[tripList[i][0]] = false;
             }
         }
-    }
+    }*/
     if ($("#tripPrice").val() !== "") {
         for (var i in tripList) {
             if (tripList[i][6].toString() !== $("#tripPrice").val()) {
@@ -273,6 +277,7 @@ $("form").submit(function() {
     return false;
 });
 
+/*
 firebase.auth().onAuthStateChanged(function(user) {
 	if (!user) {
 		window.open("index.html", "_self");
@@ -305,4 +310,4 @@ firebase.auth().onAuthStateChanged(function(user) {
 $("#signOut").click(function() {
     $("#signOut").attr("disabled", true);
     firebase.auth().signOut();
-});
+});*/

@@ -32,7 +32,7 @@ $("#studentSignIn").click(function() {
 		firebase.auth().currentUser.getIdToken(true).then(function(token) {
 			$.ajax({
 				method: "GET",
-				url: "https://hkisinterimcentral.herokuapp.com/student?token=" + token
+				url: "https://us-central1-hkis-interim.cloudfunctions.net/student?token=" + token
 			}).done(function(jqxhr) {
 				window.open("dash.html", "_self");
 			}).fail(function(jqxhr) {

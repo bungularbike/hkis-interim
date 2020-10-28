@@ -16,23 +16,29 @@
 			<h1 class = "ml-3" style = "display: inline; vertical-align: middle; color: white" id = "header">HKIS Interim Central</h1>
 		</a>
 	</nav>
-	<div class = "jumbotron m-4 py-3 py-md-4 py-xl-5">
-		<h2>Students</h2>
-		<p>Sign in using your HKIS Gmail account.</p>
-		<p class = "mb-4 d-flex align-items-center" id = "studentSpinnerP"><button class = "btn btn-primary btn-lg" id = "studentSignIn">Sign In</button></p>
-		<p id = "studentError" class = "text-danger mb-0"></p>
-		<hr class = "my-3 my-xl-5">
-		<h2>Parents</h2>
-		<p>Sign in using your parent account.</p>
-		<form>
-			<input type = "text" class = "form-control form-control-sm" placeholder = "Email address" size = "30" required>
-			<input type = "password" class = "form-control form-control-sm my-2" placeholder = "Password" size = "30" required>
-			<div class = "custom-control custom-checkbox mb-3">
-				<input type = "checkbox" class = "custom-control-input" id = "rememberMe">
-				<label class = "custom-control-label" for = "rememberMe">Keep me signed in</label>
+	<div class = "jumbotron m-4 pb-2 pt-1 pt-md-2 py-lg-3" id = "login" style = "background-image: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url(resources/background.jpg); background-position: center; background-size: cover">
+		<div class = "d-flex flex-column">
+			<div class = "text-center">
+				<h1>Welcome to Interim <span class = "d-inline-block h1">2020-21!</span></h1>
+				<p>Students, sign in with your HKIS Gmail account.</p>
+				<p class = "mb-4 d-flex justify-content-center align-items-center" id = "studentSpinnerP"><button class = "btn btn-primary btn-lg" id = "studentSignIn">Sign In</button></p>
+				<p id = "studentError" class = "text-danger mb-0"></p>
 			</div>
-			<button type = "submit" class = "btn btn-primary mb-2">Sign in</button>
-		</form>
+			<p class = "text-center mb-0" style = "font-size: 0.75rem">Made by Jack Rong & HKIS HS SDLT.</p>
+			<!--
+			<hr class = "my-3 my-xl-5">
+			<h2>Parents</h2>
+			<p>Sign in using your parent account.</p>
+			<form>
+				<input type = "text" class = "form-control form-control-sm" placeholder = "Email address" size = "30" required>
+				<input type = "password" class = "form-control form-control-sm my-2" placeholder = "Password" size = "30" required>
+				<div class = "custom-control custom-checkbox mb-3">
+					<input type = "checkbox" class = "custom-control-input" id = "rememberMe">
+					<label class = "custom-control-label" for = "rememberMe">Keep me signed in</label>
+				</div>
+				<button type = "submit" class = "btn btn-primary mb-2">Sign in</button>
+			</form>-->
+		</div>
 	</div>
 	<script src = "resources/jquery.min.js"></script>
 	<script src = "resources/popper.min.js"></script>

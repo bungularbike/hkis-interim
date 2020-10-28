@@ -277,7 +277,6 @@ $("form").submit(function() {
     return false;
 });
 
-/*
 firebase.auth().onAuthStateChanged(function(user) {
 	if (!user) {
 		window.open("index.html", "_self");
@@ -310,4 +309,4 @@ firebase.auth().onAuthStateChanged(function(user) {
 $("#signOut").click(function() {
     $("#signOut").attr("disabled", true);
     firebase.auth().signOut();
-});*/
+});

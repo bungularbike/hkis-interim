@@ -284,7 +284,7 @@ firebase.auth().onAuthStateChanged(function(user) {
         firebase.auth().currentUser.getIdToken().then(function(token) {
             $.ajax({
                 method: "GET",
-                url: "https://us-central1-hkis-interim.cloudfunctions.net/student?token=" + token,
+                url: "https://asia-east2-hkis-interim.cloudfunctions.net/student?token=" + token,
                 dataType: "json"
             }).done(function(data) {
                 if (data.admin != undefined) {

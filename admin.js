@@ -157,7 +157,7 @@ function editTrip(id) {
         $("#previewCard .starHolder").remove();
         $("#previewCard .card-header").remove();
         $("#previewCard").prepend("<div class = 'card-header'><div class = 'card-text toggleStar d-inline-block' style = 'margin-bottom: 0 !important; cursor: default !important'>" + starEmpty + "</div></div>");
-		$("#previewCard .card-body").html("<h6 class = 'card-title mb-2'>" + trip.name + "</h6><h4 class = 'card-text'>" + trip.category + "</h6><h6 class = 'card-text'>HKD" + priceFormatted.substring(0, priceFormatted.length - 3) + "</h6><p class = 'card-text mb-0' id = 'previewDescription'>" + trip.description + "</p>");
+		$("#previewCard .card-body").html("<h4 class = 'card-title mb-2'>" + trip.name + "</h4><h6 class = 'card-text'>" + trip.category + "</h6><h6 class = 'card-text'>HKD" + priceFormatted.substring(0, priceFormatted.length - 3) + "</h6><p class = 'card-text mb-0' id = 'previewDescription'>" + trip.description + "</p>");
 		$("#tripModal .modal-title").html(trip.name);
 		$("#tripModal .modal-body").empty();
 		/* if (trip.new) {

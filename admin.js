@@ -180,6 +180,9 @@ function editTrip(id) {
 		}
 		if (trip.video != "") {
 			$("#tripModal .modal-body").append("<div class = 'p-3 my-4' style = 'background-color: #AA272F'><div class = 'embed-responsive embed-responsive-16by9'><iframe class = 'embed-responsive-item' allowfullscreen frame-border = '0' src = '" + trip.video + "'></iframe></div></div>");
+			$("#tripModal").on("hidden.bs.modal", function(event) {
+                $("#tripModal iframe").attr("src", $("#tripModal iframe").attr("src"));
+            });
 		}
 		$("#tripModal .modal-body").append(trip.content);
 		$("#previewCard").keypress(function(event) {
